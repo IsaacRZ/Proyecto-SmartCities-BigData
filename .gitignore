@@ -1,2 +1,41 @@
+# Entornos virtuales Python
 venv/
-Simulacion
+env/
+.venv/
+
+# Datos históricos (archivos CSV grandes - 50+ MB cada uno)
+data/raw/
+data/processed/
+
+# Output de SUMO (archivos XML grandes - 500+ MB totales)
+Simulacion/*.xml
+Simulacion/*.xml.gz
+Simulacion/*.rou.xml
+Simulacion/*.trips.xml
+Simulacion/tripinfos.xml
+Simulacion/stopinfos.xml
+Simulacion/stats.xml
+Simulacion/vehroutes.xml
+
+# Documentos Office grandes
+docs/*.docx
+docs/*.xlsx
+docs/*.pptx
+
+# Cachés y logs
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Base de datos
+*.db
+postgres_data/
+pgadmin_data/
+grafana_data/
