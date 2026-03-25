@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="osm.net.xml.gz"/>
+        <route-files value="osm_pt.rou.xml,
+            osm.pass.mad.xml,osm.pass.man.xml,osm.pass.pam.xml,osm.pass.dia.xml,osm.pass.ppm.xml,osm.pass.noc.xml,
+            osm.moto.mad.xml,osm.moto.man.xml,osm.moto.pam.xml,osm.moto.dia.xml,osm.moto.ppm.xml,osm.moto.noc.xml,
+            osm.bus.man.xml,osm.bus.pam.xml,osm.bus.dia.xml,osm.bus.ppm.xml,osm.bus.noc.xml,
+            osm.truck.mad.xml,osm.truck.man.xml,osm.truck.pam.xml,osm.truck.dia.xml,osm.truck.ppm.xml,osm.truck.noc.xml"/>
+        <additional-files value="osm.poly.xml.gz,osm_stops.add.xml,output.add.xml,speedFactors_hourly_BCN.add.xml"/>
+    </input>
+
+    <o>
+        <tripinfo-output value="tripinfos.xml"/>
+        <stop-output value="stopinfos.xml"/>
+        <statistic-output value="stats.xml"/>
+    </o>
+
+    <time>
+        <begin value="0"/>
+        <end value="86400"/>
+        <step-length value="1.0"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <tls.actuated.jam-threshold value="30"/>
+        <device.rerouting.probability value="0.8"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="18"/>
+        <device.rerouting.adaptation-interval value="10"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="osm.view.xml"/>
+    </gui_only>
+
+</sumoConfiguration>

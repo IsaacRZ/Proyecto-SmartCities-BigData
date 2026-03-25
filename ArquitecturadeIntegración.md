@@ -3,6 +3,7 @@
 ### **Batch Layer → Barcelona Open Data (Datos Históricos Reales)**
 URL del dataset: https://opendata-ajuntament.barcelona.cat/data/es/dataset/trams
 Fecha de descarga: 18 de Febrero 2026
+Tamaño: 264M
 
 ```
 Barcelona Sensors (Real)
@@ -33,4 +34,3 @@ Aplica modelos entrenados con Barcelona
     ↓
 Predicciones en tiempo real → BigQuery
 ```
-
