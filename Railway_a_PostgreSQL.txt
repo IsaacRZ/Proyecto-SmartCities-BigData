@@ -1,0 +1,55 @@
+Cambios a realizar para la inserción de datos de la nube (Railway) a la base de Docker
+
+En el Docker se le debe de instalar el archivo Python llamado "migrar_a_python"
+
+En caso de que falle ejecutar estos scripts en sql (pgAdmin) 
+
+ALTER TABLE edge_data ADD COLUMN IF NOT EXISTS begin_time DOUBLE PRECISION;
+ALTER TABLE edge_data ADD COLUMN IF NOT EXISTS end_time DOUBLE PRECISION;
+
+ALTER TABLE simulation_stats ADD COLUMN IF NOT EXISTS step INTEGER;
+ALTER TABLE simulation_stats ADD COLUMN IF NOT EXISTS vehicles_loaded INTEGER;
+ALTER TABLE simulation_stats ADD COLUMN IF NOT EXISTS vehicles_inserted INTEGER;
+ALTER TABLE simulation_stats ADD COLUMN IF NOT EXISTS vehicles_running INTEGER;
+ALTER TABLE simulation_stats ADD COLUMN IF NOT EXISTS vehicles_waiting INTEGER;
+
+ALTER TABLE pt_stops ADD COLUMN IF NOT EXISTS delay DOUBLE PRECISION;
+ALTER TABLE pt_stops ADD COLUMN IF NOT EXISTS passengers_loaded INTEGER;
+
+ALTER TABLE vehicle_types ADD COLUMN IF NOT EXISTS vclass VARCHAR(30);
+ALTER TABLE vehicle_types ADD COLUMN IF NOT EXISTS description TEXT;
+
+
+ALTER TABLE edge_data ALTER COLUMN interval_begin DROP NOT NULL;
+ALTER TABLE edge_data ALTER COLUMN interval_end DROP NOT NULL;
+ALTER TABLE edge_data ALTER COLUMN begin_time DROP NOT NULL;
+ALTER TABLE edge_data ALTER COLUMN end_time DROP NOT NULL;
+
+ALTER TABLE edge_data ADD COLUMN IF NOT EXISTS total_travel_time DOUBLE PRECISION;
+ALTER TABLE edge_data ADD COLUMN IF NOT EXISTS total_co2 DOUBLE PRECISION;
+ALTER TABLE edge_data ADD COLUMN IF NOT EXISTS total_fuel DOUBLE PRECISION;
+
+Y luego volver ejecutar script 
+
+*en caso de que suceda un error pero hayan datos ya descargados ejecutar este script*
+
+Script para borrar datos (solo datos)
+TRUNCATE TABLE 
+    pt_stops, 
+    simulation_stats, 
+    edge_data, 
+    vehicle_trips, 
+    simulation_runs,
+    time_periods,
+    vehicle_types
+RESTART IDENTITY CASCADE;
+
+Script para reingresar los datos estáticos 
+INSERT INTO time_periods (period_name, start_hour, end_hour, description) VALUES
+    ('MADRUGADA', 0, 5, 'Madrugada (00:00-05:00)'),
+    ('MAÑANA', 5, 7, 'Mañana temprano (05:00-07:00)'),
+    ('PICO_AM', 7, 9, 'Pico matutino (07:00-09:00)'),
+    ('DIA', 9, 17, 'Día normal (09:00-17:00)'),
+    ('PICO_PM', 17, 19, 'Pico vespertino (17:00-19:00)'),
+    ('NOCHE', 19, 24, 'Noche (19:00-24:00)')
+ON CONFLICT DO NOTHING;
