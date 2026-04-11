@@ -1,6 +1,39 @@
 # Smart Cities Project - Makefile
 # Workflow orchestration for simulation, data import, and analysis
 
+#========================================================================
+# SETUP:
+# POWERSHELL: wsl --install -d Ubuntu
+
+# Docker Desktop → Settings (engranaje ⚙️) → Resources → WSL Integration
+# ☑ Enable integration with my default WSL distro
+#Additional distros:
+#☑ Ubuntu   ← Activa esta (o la que uses)
+
+
+# Open UBUNTU 
+# 1. Ve a tu home de Linux
+# 	cd ~
+# 2. Descarga el instalador
+# 	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+# 3. Ejecuta el instalador
+# 	bash Miniconda3-latest-Linux-x86_64.sh
+# 4. Recarga el shell para activar conda
+#	source ~/.bashrc
+
+# 5. Verifica que funciona
+#	conda --version
+# 6. Luego vuelves a tu proyecto (que SÍ puede estar en /mnt/c/)
+#	cd "/mnt/c/Users/LENOVO/Documents/Big Data/BigData/Proyecto~SmartCities"
+# 7. Y corres el make normalmente
+#		make setup
+#		conda activate project_smart_cities
+#		make docker-all
+#		make simulation
+#		make import RUN_NAME=nombre_simulacion
+#		make analysis
+#========================================================================
+#
 .PHONY: help setup simulation import analysis docker-all docker-down clean
 
 # Default target
