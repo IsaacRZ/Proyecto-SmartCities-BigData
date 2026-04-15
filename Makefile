@@ -46,6 +46,8 @@ help:
 	@echo "  simulation   - Run SUMO simulation"
 	@echo "  import       - Import SUMO XML data to PostgreSQL"
 	@echo "  analysis     - Start Jupyter for PySpark analysis"
+	@echo "  pipeline     - Full 8-phase Spark pipeline"
+	@echo "  pipeline-nb  - 8-phase pipeline in Jupyter notebook"
 	@echo "  docker-all   - Start all Docker services (DB, Grafana, pgAdmin)"
 	@echo "  docker-down  - Stop all Docker services"
 	@echo "  clean        - Clean Python cache and build artifacts"
@@ -55,6 +57,8 @@ help:
 	@echo "  make docker-all"
 	@echo "  make simulation"
 	@echo "  make import RUN_NAME=my_simulation"
+	@echo "  make pipeline            # Run 8-phase Spark pipeline"
+	@echo "  make pipeline-nb         # Run pipeline in Jupyter"
 	@echo ""
 
 # Setup conda environment
@@ -127,3 +131,58 @@ clean:
 pipeline: docker-all simulation
 	@echo ""
 	@echo "Simulation complete. Run 'make import RUN_NAME=your_name' to import data"
+
+# 8-Phase Spark Pipeline (batch + streaming + ML + alerts + recommendations)
+spark-pipeline:
+	@echo "=========================================="
+	@echo "  Smart Cities 8-Phase Spark Pipeline"
+	@echo "=========================================="
+	@echo ""
+	@echo "FASE 1: Batch Processing"
+	@echo "FASE 2: Streaming Simulado"
+	@echo "FASE 3: Arquitectura Lambda"
+	@echo "FASE 4: Clasificación MLlib"
+	@echo "FASE 5: Predicción de Incidentes"
+	@echo "FASE 6: Alertas Automáticas"
+	@echo "FASE 7: Recomendaciones de Rutas"
+	@echo "FASE 8: Grafana Dashboard"
+	@echo ""
+	python run_pipeline.py
+
+# Run 8-phase pipeline with specific phases
+spark-phase:
+ifdef PHASE
+	python run_pipeline.py --phase $(PHASE)
+else
+	@echo "Usage: make spark-phase PHASE='1 2 3' (run phases 1, 2, 3)"
+endif
+
+# Run 8-phase pipeline in Jupyter notebook
+spark-pipeline-nb:
+	@echo "Starting Jupyter with 8-phase Spark pipeline..."
+	@echo "Open: notebooks/03_smart_cities_pipeline.ipynb"
+	conda activate project_smart_cities && jupyter lab --notebook-dir=notebooks --ip=localhost --port=8888
+
+# View Grafana dashboard
+grafana:
+	@echo "Opening Grafana dashboard..."
+	@echo "URL: http://localhost:3000"
+	@echo "Username: admin"
+	@echo "Password: admin"
+ifdef OS
+	start http://localhost:3000
+else
+	open http://localhost:3000 || xdg-open http://localhost:3000 2>/dev/null || echo "Visit http://localhost:3000"
+endif
+
+# View pgAdmin
+pgadmin:
+	@echo "Opening pgAdmin..."
+	@echo "URL: http://localhost:5050"
+	@echo "Username: admin@sumo.com"
+	@echo "Password: admin123"
+ifdef OS
+	start http://localhost:5050
+else
+	open http://localhost:5050 || xdg-open http://localhost:5050 2>/dev/null || echo "Visit http://localhost:5050"
+endif
