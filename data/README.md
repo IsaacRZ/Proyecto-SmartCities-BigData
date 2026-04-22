@@ -33,3 +33,39 @@ Team members should share data files via external storage (Google Drive, shared 
 ## Loading external data
 
 Place downloaded files in the appropriate subdirectory before running analysis notebooks.
+
+
+ # 1. Crear ambiente Conda
+  make setup
+  conda activate project_smart_cities
+
+  # 2. Iniciar Docker (opcional, para Grafana/PostgreSQL)
+  make docker-all
+
+  # 3. Correr el pipeline
+  make spark-pipeline              # Todas las 8 fases
+  # O directamente:
+  python run_pipeline.py           # Todas las fases
+  python run_pipeline.py --phase 1 4 5  # Fases específicas
+
+  Archivos PIPELINE disponibles:
+
+  ┌──────────────────────────────────────────┬───────────────────────────────────────────────┐
+  │                 Archivo                  │                  Descripción                  │
+  ├──────────────────────────────────────────┼───────────────────────────────────────────────┤
+  │ run_pipeline.py                          │ Script CLI para ejecutar el pipeline completo │
+  ├──────────────────────────────────────────┼───────────────────────────────────────────────┤
+  │ scripts/spark_pipeline.py                │ Módulo principal con las 8 fases              │
+  ├──────────────────────────────────────────┼───────────────────────────────────────────────┤
+  │ notebooks/03_smart_cities_pipeline.ipynb │ Notebook interactivo                          │
+  ├──────────────────────────────────────────┼───────────────────────────────────────────────┤
+  │ PIPELINE_README.md                       │ Guía de inicio rápido                         │
+  ├──────────────────────────────────────────┼───────────────────────────────────────────────┤
+  │ PIPELINE_GUIDE.md                        │ Documentación detallada                       │
+  └──────────────────────────────────────────┴───────────────────────────────────────────────┘
+
+  Notas para Ubuntu:
+
+  - El env.yaml ya incluye openjdk=11 requerido por Spark
+  - Si no tienes Docker, usa python run_pipeline.py --skip-db para saltar la conexión a PostgreSQL
+  - Para ver resultados en Grafana: http://localhost:3000 (admin/admin)

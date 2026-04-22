@@ -10,7 +10,7 @@ from pyspark.ml.feature import VectorAssembler, StandardScaler, StringIndexer
 from pyspark.ml.classification import RandomForestClassifier, LogisticRegression
 from pyspark.ml.regression import GBTRegressor
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator, RegressionEvaluator
-import pandas as pd
+import pandas as pd 
 from datetime import datetime
 import logging
 
@@ -21,6 +21,9 @@ logger = logging.getLogger(__name__)
 class SparkTrafficPipeline:
     """Pipeline base para procesamiento de tráfico"""
     
+    # ============= FASE 0 : LECTURA Y PROCESAMIENTO BATCH =============
+    # .sql.adaptive.enabled     Adapta a la cantidad de datos 
+    # .sql.shuffle.partitions   8 procesos en parallelo para evitar OOM
     def __init__(self, app_name="SmartCities", log_level="WARN"):
         self.spark = SparkSession.builder \
             .appName(app_name) \

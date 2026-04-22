@@ -70,7 +70,8 @@ setup:
 # Start Docker services
 docker-all:
 	@echo "Starting Docker services (PostgreSQL, Grafana, pgAdmin)..."
-	cd sumo_db_project && docker-compose up -d
+	cd sumo_db_project 
+	docker-compose up -d
 	@echo ""
 	@echo "Services started:"
 	@echo "  - PostgreSQL/TimescaleDB: localhost:5432 (postgres/sumo123)"
