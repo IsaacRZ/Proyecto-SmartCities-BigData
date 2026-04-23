@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Base de datos principal: PostgreSQL + TimescaleDB
+  # Base de datos principal: PostgreSQL 
   timescaledb:
     image: timescale/timescaledb:latest-pg16
     container_name: sumo_traffic_db
@@ -26,7 +26,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # pgAdmin - Interfaz web para administrar la BD (opcional pero útil)
+  # pgAdmin - Interfaz web para administrar la BD 
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: sumo_pgadmin
@@ -42,7 +42,7 @@ services:
     depends_on:
       - timescaledb
 
-  # Grafana - Para visualización de datos (opcional)
+  # Grafana - Para visualización de datos 
   grafana:
     image: grafana/grafana:latest
     container_name: sumo_grafana
@@ -50,9 +50,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: admin123
-      GF_INSTALL_PLUGINS: grafana-clock-panel
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_INSTALL_PLUGINS=grafana-clock-panel
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
     volumes:
       - grafana_data:/var/lib/grafana
     depends_on:

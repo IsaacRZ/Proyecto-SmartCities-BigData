@@ -11,7 +11,7 @@ echo ============================================================
 echo.
 
 REM AJUSTA ESTA RUTA A DONDE ESTÁN TUS ARCHIVOS XML
-set DATA_DIR=C:\Users\sebas\2026-02-15-18-21-36\2026-02-15-18-31-42
+set DATA_DIR=C:\BigData\Proyecto_Nube\Simulacion
 
 REM Nombre de la simulación
 set RUN_NAME=San_Jose_Barcelona_Test_01
