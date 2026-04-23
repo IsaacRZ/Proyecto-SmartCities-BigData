@@ -13,22 +13,37 @@ from pyspark.ml.evaluation import MulticlassClassificationEvaluator, RegressionE
 import pandas as pd 
 from datetime import datetime
 import logging
+import os
+import sys
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Configurar HADOOP_HOME para Windows
+if sys.platform == "win32" and not os.environ.get("HADOOP_HOME"):
+    # Usar directorio temporal para hadoop en Windows
+    hadoop_home = os.path.join(os.environ.get("TEMP", os.environ.get("TMP", "C:\\Windows\\Temp")), "hadoop")
+    os.environ["HADOOP_HOME"] = hadoop_home
+    os.environ["hadoop.home.dir"] = hadoop_home
+    logger.info(f"HADOOP_HOME configurado para Windows: {hadoop_home}")
+
 
 class SparkTrafficPipeline:
     """Pipeline base para procesamiento de tráfico"""
+<<<<<<< Updated upstream
     
     # ============= FASE 0 : LECTURA Y PROCESAMIENTO BATCH =============
     # .sql.adaptive.enabled     Adapta a la cantidad de datos 
     # .sql.shuffle.partitions   8 procesos en parallelo para evitar OOM
+=======
+
+>>>>>>> Stashed changes
     def __init__(self, app_name="SmartCities", log_level="WARN"):
         self.spark = SparkSession.builder \
             .appName(app_name) \
             .config("spark.sql.adaptive.enabled", "true") \
             .config("spark.sql.shuffle.partitions", "8") \
+            .config("spark.sql.legacy.timeParserPolicy", "LEGACY") \
             .getOrCreate()
         self.spark.sparkContext.setLogLevel(log_level)
         logger.info(f"✓ SparkSession creada: {app_name}")

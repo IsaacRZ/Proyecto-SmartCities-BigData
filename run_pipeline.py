@@ -14,6 +14,15 @@ import os
 import argparse
 from pathlib import Path
 
+# Configurar HADOOP_HOME para Windows ANTES de importar Spark
+if sys.platform == "win32" and not os.environ.get("HADOOP_HOME"):
+    hadoop_home = Path(os.environ.get("USERPROFILE", "C:\\Users\\Default")) / ".hadoop" / "hadoop-3.2.2"
+    os.environ["HADOOP_HOME"] = str(hadoop_home)
+    os.environ["hadoop.home.dir"] = str(hadoop_home)
+    bin_dir = hadoop_home / "bin"
+    if str(bin_dir) not in os.environ.get("PATH", ""):
+        os.environ["PATH"] = str(bin_dir) + ";" + os.environ.get("PATH", "")
+
 # Agregar scripts al path
 scripts_dir = Path(__file__).parent / "scripts"
 sys.path.insert(0, str(scripts_dir))

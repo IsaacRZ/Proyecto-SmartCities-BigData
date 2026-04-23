@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python -c \"import json; nb = json.load\\(open\\('02_ml_traffic_analysis.ipynb', encoding='utf-8'\\)\\); print\\('Total cells:', len\\(nb['cells']\\)\\); [print\\(f'Cell {i}: {c[\\\\\"cell_type\\\\\"]} - {len\\(c[\\\\\"source\\\\\"].split\\(chr\\(10\\)\\)\\) if isinstance\\(c[\\\\\"source\\\\\"], str\\) else len\\(c[\\\\\"source\\\\\"]\\)} lines'\\) for i, c in enumerate\\(nb['cells']\\)]\")",
-      "Bash(python:*)"
-    ]
-  }
-}
